@@ -59,9 +59,9 @@ class CppCheck(ShellCommand):
                 location = locations[0]
                 file = location.getAttribute('file')
                 lineNo = location.getAttribute('line')
-                warnings.append("%s:%s %s %s %s" % (file, lineNo, id, severity, message))
+                warnings.append("[%s:%s]: (%s) %s" % (file, lineNo, severity, message))
             else:
-                warnings.append(" %s %s %s" % (id, severity, message))
+                warnings.append("(%s) %s" % (severity, message))
 
             self.warnCount += 1
 
