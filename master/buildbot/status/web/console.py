@@ -76,7 +76,7 @@ class DevRevision:
 class DevBuild:
     """Helper class that contains all the information we need for a build."""
 
-    def __init__(self, revision, build, details):
+    def __init__(self, revision, build, details, revisions=[]):
         self.revision = revision
         self.results =  build.getResults()
         self.number = build.getNumber()
@@ -87,6 +87,11 @@ class DevBuild:
         self.when = build.getTimes()[0]
         #TODO: support multiple sourcestamps
         self.source = build.getSourceStamps()[0]
+
+        for rev in revisions:
+            if rev.revision == revision:
+                self.when = rev.when
+                break
 
 
 class ConsoleStatusResource(HtmlResource):
@@ -221,7 +226,7 @@ class ConsoleStatusResource(HtmlResource):
         return details
 
     def getBuildsForRevision(self, request, builder, builderName, codebase,
-                             lastRevision, numBuilds, debugInfo):
+                             revisions, lastRevision, numBuilds, debugInfo):
         """Return the list of all the builds for a given builder that we will
         need to be able to display the console page. We start by the most recent
         build, and we go down until we find a build that was built prior to the
@@ -257,7 +262,7 @@ class ConsoleStatusResource(HtmlResource):
             if got_rev is not None:
                 number += 1
                 details = self.getBuildDetails(request, builderName, build)
-                devBuild = DevBuild(got_rev, build, details)
+                devBuild = DevBuild(got_rev, build, details, revisions)
                 builds.append(devBuild)
 
                 # Now break if we have enough builds.
@@ -284,8 +289,9 @@ class ConsoleStatusResource(HtmlResource):
         changes.sort(key=self.comparator.getSortingKey())
         return changes[-1]
     
-    def getAllBuildsForRevision(self, status, request, codebase, lastRevision,
-                                numBuilds, categories, builders, debugInfo):
+    def getAllBuildsForRevision(self, status, request, codebase, revisions, 
+                                lastRevision, numBuilds, categories, builders,
+                                debugInfo):
         """Returns a dictionary of builds we need to inspect to be able to
         display the console page. The key is the builder name, and the value is
         an array of build we care about. We also returns a dictionary of
@@ -334,6 +340,7 @@ class ConsoleStatusResource(HtmlResource):
                                                                builder,
                                                                builderName,
                                                                codebase,
+                                                               revisions,
                                                                lastRevision,
                                                                numBuilds,
                                                                debugInfo)
@@ -676,6 +683,7 @@ class ConsoleStatusResource(HtmlResource):
                 (builderList, allBuilds) = self.getAllBuildsForRevision(status,
                                                     request,
                                                     codebase,
+                                                    revisions,
                                                     lastRevision,
                                                     numBuilds,
                                                     categories,
