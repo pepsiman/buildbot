@@ -291,10 +291,6 @@ class Nightly(NightlyBase):
             config.error(
                 "fileIsImportant must be a callable")
 
-        if branch is Nightly.NoBranch:
-            config.error(
-                "Nightly parameter 'branch' is required")
-
         if createAbsoluteSourceStamps and not onlyIfChanged:
             config.error(
                 "createAbsoluteSourceStamps can only be used with onlyIfChanged")
@@ -335,7 +331,7 @@ class Nightly(NightlyBase):
         # we will include all such changes in any buildsets we start.  Note
         # that we must check the branch here because it is not included in the
         # change filter. 
-        if change.branch != self.branch:
+        if self.branch is not Nightly.NoBranch and change.branch != self.branch:
             return defer.succeed(None) # don't care about this change
 
         d = self.master.db.schedulers.classifyChanges(
