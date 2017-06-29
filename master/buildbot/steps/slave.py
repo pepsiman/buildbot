@@ -180,6 +180,8 @@ class RemoveDirectory(SlaveBuildStep):
             raise BuildSlaveTooOldError("slave is too old, does not know "
                                         "about rmdir")
         cmd = buildstep.RemoteCommand('rmdir', {'dir': self.dir })
+        self.stdio_log = stdio_log = self.addLog("stdio")
+        cmd.useLog(stdio_log, True)
         d = self.runCommand(cmd)
         d.addCallback(lambda res: self.commandComplete(cmd))
         d.addErrback(self.failed)
