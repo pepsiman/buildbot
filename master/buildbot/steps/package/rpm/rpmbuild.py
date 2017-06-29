@@ -32,6 +32,7 @@ class RpmBuild(ShellCommand):
     flunkOnFailure = 1
     description = ["RPMBUILD"]
     descriptionDone = ["RPMBUILD"]
+    renderables = ["dist"]
 
     def __init__(self,
                  specfile=None,
@@ -70,20 +71,30 @@ class RpmBuild(ShellCommand):
         @param vcsRevision: Use vcs version number as revision number.
         """
         ShellCommand.__init__(self, **kwargs)
-        self.rpmbuild = (
-            'rpmbuild --define "_topdir %s" --define "_builddir %s"'
-            ' --define "_rpmdir %s" --define "_sourcedir %s"'
-            ' --define "_specdir %s" --define "_srcrpmdir %s"'
-            ' --define "dist %s"' % (topdir, builddir, rpmdir, sourcedir,
-            specdir, srcrpmdir, dist))
+
         self.specfile = specfile
         self.autoRelease = autoRelease
         self.vcsRevision = vcsRevision
+
+        self.topdir = topdir
+        self.builddir = builddir
+        self.rpmdir = rpmdir
+        self.sourcedir = sourcedir
+        self.specdir = specdir
+        self.srcrpmdir = srcrpmdir
+        self.dist = dist
 
         if not self.specfile:
             config.error("You must specify a specfile")
 
     def start(self):
+        rpmbuild = (
+            'rpmbuild --define "_topdir %s" --define "_builddir %s"'
+            ' --define "_rpmdir %s" --define "_sourcedir %s"'
+            ' --define "_specdir %s" --define "_srcrpmdir %s"'
+            ' --define "dist %s"' % (self.topdir, self.builddir, self.rpmdir, self.sourcedir,
+            self.specdir, self.srcrpmdir, self.dist))
+
         if self.autoRelease:
             relfile = '%s.release' % (
                 os.path.basename(self.specfile).split('.')[0])
@@ -92,7 +103,7 @@ class RpmBuild(ShellCommand):
                     rel = int(rfile.readline().strip())
             except:
                 rel = 0
-            self.rpmbuild = self.rpmbuild + ' --define "_release %s"' % rel
+            rpmbuild = rpmbuild + ' --define "_release %s"' % rel
             with open(relfile, 'w') as rfile:
                 rfile.write(str(rel+1))
 
@@ -100,12 +111,12 @@ class RpmBuild(ShellCommand):
             revision = self.getProperty('got_revision')
             # only do this in the case where there's a single codebase
             if revision and not isinstance(revision, dict):
-                self.rpmbuild = (self.rpmbuild + ' --define "_revision %s"' %
+                rpmbuild = (rpmbuild + ' --define "_revision %s"' %
                                 revision)
 
-        self.rpmbuild = self.rpmbuild + ' -ba %s' % self.specfile
+        rpmbuild = rpmbuild + ' -ba %s' % self.specfile
 
-        self.command = self.rpmbuild
+        self.command = rpmbuild
 
         # create the actual RemoteShellCommand instance now
         kwargs = self.remote_kwargs
