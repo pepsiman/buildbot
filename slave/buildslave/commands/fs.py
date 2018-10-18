@@ -92,7 +92,7 @@ class RemoveDirectory(base.Command):
         return d
 
     def _clobber(self, dummy, chmodDone = False):
-        command = ["rm", "-rf", self.dir]
+        command = ["rm", "-vrf", self.dir]
         c = runprocess.RunProcess(self.builder, command, self.builder.basedir,
                          sendRC=0, timeout=self.timeout, maxTime=self.maxTime,
                          logEnviron=self.logEnviron, usePTY=False)
@@ -115,7 +115,7 @@ class RemoveDirectory(base.Command):
             return defer.succeed(0)
         # Attempt a recursive chmod and re-try the rm -rf after.
 
-        command = ["chmod", "-Rf", "u+rwx", os.path.join(self.builder.basedir, self.dir)]
+        command = ["chmod", "-vRf", "u+rwx", os.path.join(self.builder.basedir, self.dir)]
         if sys.platform.startswith('freebsd'):
             # Work around a broken 'chmod -R' on FreeBSD (it tries to recurse into a
             # directory for which it doesn't have permission, before changing that
