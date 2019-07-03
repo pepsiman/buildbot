@@ -82,7 +82,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -128,7 +128,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -177,7 +177,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             ExpectShell(workdir='wkdir',
                         timeout=1,
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         timeout=1,
@@ -227,7 +227,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -360,7 +360,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -481,7 +481,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -766,7 +766,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,  # directory exists
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -806,7 +806,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,  # directory exists
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -851,7 +851,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,  # directory exists
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -901,7 +901,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'abcdef01'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -943,7 +943,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'stable'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -990,7 +990,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'stable'])
+                                 'http://hg.mozilla.org'])
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'])
@@ -1035,7 +1035,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'], env={'abc': '123'})
+                                 'http://hg.mozilla.org'], env={'abc': '123'})
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'identify', '--branch'],
@@ -1086,7 +1086,7 @@ class TestMercurial(sourcesteps.SourceStepMixin, TestReactorMixin,
             + 0,
             ExpectShell(workdir='wkdir',
                         command=['hg', '--verbose', 'pull',
-                                 'http://hg.mozilla.org', '--rev', 'default'],
+                                 'http://hg.mozilla.org'],
                         logEnviron=False)
             + 0,
             ExpectShell(workdir='wkdir',
