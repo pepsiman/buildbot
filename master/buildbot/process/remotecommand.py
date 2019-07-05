@@ -263,7 +263,7 @@ class RemoteCommand(base.RemoteCommandImpl):
 
         if logname in self.logs:
             log_ = yield self._unwrap(self.logs[logname])
-            yield log_.addStdout(data)
+            yield log_.addContent(data)
         else:
             log.msg("%s.addToLog: no such log %s" % (self, logname))
 
@@ -312,14 +312,14 @@ class RemoteCommand(base.RemoteCommandImpl):
             delta = (util.now() - self._startTime) - self._remoteElapsed
             metrics.MetricTimeEvent.log("RemoteCommand.overhead", delta)
 
+        if maybeFailure:
+            yield self.addHeader("\nremoteFailed: %s" % maybeFailure)
+
         for name, loog in self.logs.items():
             if self._closeWhenFinished[name]:
-                if maybeFailure:
-                    loog = yield self._unwrap(loog)
-                    yield loog.addHeader("\nremoteFailed: %s" % maybeFailure)
-                else:
-                    log.msg("closing log %s" % loog)
+                log.msg("closing log %s" % loog)
                 loog.finish()
+
         if maybeFailure:
             # workaround http://twistedmatrix.com/trac/ticket/5507
             # CopiedFailure cannot be raised back, this make debug difficult

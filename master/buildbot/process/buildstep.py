@@ -1018,11 +1018,11 @@ class LoggingBuildStep(BuildStep):
                 # Python name binding; default values are bound by value, but
                 # captured variables in the body are bound by name.
                 def callback(cmd_arg, local_logname=logname):
-                    return self.addLog(local_logname)
+                    return self.addLog(local_logname, 't')
                 cmd.useLogDelayed(logname, callback, True)
             else:
                 # add a LogFile
-                newlog = self.addLog(logname)
+                newlog = self.addLog(logname, 't')
                 # and tell the RemoteCommand to feed it
                 cmd.useLog(newlog, True)
 
