@@ -119,7 +119,7 @@ class RawLogChunkEndpoint(LogChunkEndpointBase):
 
         return {'raw': logLines,
                 'mime-type': 'text/html' if dbdict['type'] == 'h' else 'text/plain',
-                'filename': dbdict['slug']}
+                'filename': dbdict['name']}
 
 
 class LogChunk(base.ResourceType):
