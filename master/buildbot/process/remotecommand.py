@@ -263,7 +263,7 @@ class RemoteCommand(base.RemoteCommandImpl):
 
         if logname in self.logs:
             log_ = yield self._unwrap(self.logs[logname])
-            yield log_.addStdout(data)
+            yield log_.addContent(data)
         else:
             log.msg("%s.addToLog: no such log %s" % (self, logname))
 
