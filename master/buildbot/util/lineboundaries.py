@@ -28,7 +28,7 @@ class LineBoundaryFinder:
     __slots__ = ['partialLine', 'callback', 'warned']
     # split at reasonable line length.
     # too big lines will fill master's memory, and slow down the UI too much.
-    MAX_LINELENGTH = 4096
+    MAX_LINELENGTH = 8192
     # the lookahead here (`(?=.)`) ensures that `\r` doesn't match at the end
     # of the buffer
     # we also convert cursor control sequence to newlines
