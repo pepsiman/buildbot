@@ -125,7 +125,7 @@ class BuilderController {
                 $scope.numbuilds = +$stateParams.numbuilds;
             }
             $scope.builds = builder.getBuilds({
-                property: ["owners", "workername"],
+                property: ["owners", "scheduler", "workername"],
                 limit: $scope.numbuilds,
                 order: '-number'
             });
