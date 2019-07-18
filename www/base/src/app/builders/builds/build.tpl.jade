@@ -1,13 +1,14 @@
 .container
   .alert.alert-danger(ng-show="error") {{error}}
   nav
-    ul.pager
+    ul.pager.list-inline
       li.previous(ng-class="{'disabled': build.number == 1}")
         a(ng-if="build.number > 1 ", ui-sref="build({build:prevbuild.number})")
             span.badge-status(ng-class="results2class(prevbuild, 'pulse')") &larr;
             span.nomobile &nbsp;Previous
         span(ng-if="build.number == 1") &larr;
             span.nomobile &nbsp;Previous
+      li(title="{{ build.started_at | dateformat:'LLL' }}") Started {{ build.started_at | timeago }}
       li(ng-if="build.complete" title="{{ build.complete_at | dateformat:'LLL' }}") Finished {{ build.complete_at | timeago }}
       li.next(ng-class="{'disabled': last_build}")
         a(ng-if="!last_build", ui-sref="build({build:nextbuild.number})")
