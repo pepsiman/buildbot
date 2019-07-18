@@ -475,7 +475,8 @@ class Build(properties.PropertiesMixin):
 
         self.steps = self.setupBuildSteps(self.stepFactories)
 
-        owners = set(self.blamelist())
+        owners = set(self.getProperty('owners', []))
+        owners.update(set(self.blamelist()))
         # gather owners from build requests
         owners.update({r.properties['owner'] for r in self.requests
                        if "owner" in r.properties})
