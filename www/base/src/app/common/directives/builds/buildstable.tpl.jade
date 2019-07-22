@@ -21,8 +21,8 @@
                     | {{build.number}}
                   span.badge-active {{results2text(build)}}
           td
-            span(title="{{build.started_at | dateformat:'LLL'}}")
-              | {{build.started_at | timeago }}
+            span(title="{{build.started_at | timeago }}")
+              | {{build.started_at | dateformat:'LLL' }}
           td
             span(ng-show="build.complete", title="{{(build.complete_at - build.started_at)| durationformat:'LLL' }}")
               | {{(build.complete_at - build.started_at)| duration }}
