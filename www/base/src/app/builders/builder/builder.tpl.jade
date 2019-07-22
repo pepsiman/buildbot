@@ -17,8 +17,8 @@
                 a(ui-sref="buildrequest({buildrequest:br.buildrequestid})")
                   span.badge-status {{br.buildrequestid}}
               td
-                span(title="{{br.submitted_at | dateformat:'LLL'}}")
-                  | {{br.submitted_at | timeago }}
+                span(title="{{br.submitted_at | timeago }}")
+                  | {{br.submitted_at | dateformat:'LLL' }}
               td
                 span(ng-repeat="owner in br.properties.owners[0]") {{owner}}
               td

@@ -18,8 +18,8 @@
             a(ui-sref="builder({builder:br.builderid})")
               span {{br.builder.name}}
           td
-            span(title="{{br.submitted_at | dateformat:'LLL'}}")
-              | {{br.submitted_at | timeago }}
+            span(title="{{br.submitted_at | timeago }}")
+              | {{br.submitted_at | dateformat:'LLL' }}
           td
             span {{br.properties.owner[0]}}
           td(ng-repeat="(k, v) in properties")
